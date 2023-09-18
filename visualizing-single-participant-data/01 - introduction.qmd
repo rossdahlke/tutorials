@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Single-Participant Data"
 format: 
-  pdf:
+  html:
     toc: true
     embed-resources: true
 editor: visual
