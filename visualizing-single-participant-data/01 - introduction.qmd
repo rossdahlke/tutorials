@@ -47,6 +47,12 @@ If you ever find yourself *just* wanting `ggplot2` (i.e., and not all of the tid
 library(ggplot2)
 ```
 
+Let's also install the `scales` package, which we will use later in the tutorial.
+
+```{r eval = F}
+install.packages("scales")
+```
+
 ## Understanding the Philosophy of ggplot2
 
 ### Grammar of Graphics
@@ -464,6 +470,18 @@ ggplot(data = student_data_summarized, aes(x = week, ymin = ci_low, y = mean, ym
 Annotations are a way to add additional information to your graphs. Here, we will go over some of the most useful annotations.
 
 ```{r}
+# Simulate single-participant data
+weeks <- 1:10
+scores <- rnorm(10, mean = 75, sd = 5)
+scores_math <- rnorm(10, mean = 75, sd = 15)
+scores_reading <- rnorm(10, mean = 65, sd = 5)
+scores_science <- rnorm(10, mean = 70, sd = 5)
+scores_art <- rnorm(10, mean = 75, sd = 5)
+scores_music <- rnorm(10, mean = 75, sd = 10)
+
+# Create a tibble
+student_data <- tibble(week = weeks, scores_math = scores_math, scores_reading = scores_reading, scores_science = scores_science, scores_art = scores_art, scores_music = scores_music, teacher = teacher)
+
 student_data <- student_data %>% 
   mutate(period = if_else(week <= 5, "pre-treatment", "post-treatment"),
          scores_reading = if_else(period == "post-treatment", scores_reading + 10, scores_reading),
@@ -691,12 +709,6 @@ ggplot(data = student_data, aes(x = week, y = scores_reading)) +
 
 You can also adjust the label format. For example, we can make the y-axis into percentages using the `scale_y_continuous` function.
 
-You may need to install the `scales` package.
-
-```{r eval = FALSE}
-install.packages("scales")
-```
-
 ```{r}
 ggplot(data = student_data, aes(x = week, y = scores_reading*.01)) +
   geom_point() +
@@ -855,4 +867,42 @@ ggplot(data = student_data_long, aes(x = week, y = value, color = name)) +
   geom_point() +
   facet_wrap(name~.) +
   theme(legend.position = "none")
+```
+
+# Section 7: Hands-On Example
+
+Here's a hands-on example that incorporates the entire process of reading in one's data, doing some checks for face validity, and visualizing it.
+
+```{r}
+case_1 <- read_csv("data/sample1.csv")
+```
+
+```{r}
+case_1 %>% 
+  group_by(session_name) %>% 
+  summarize(mean = mean(data))
+```
+
+```{r}
+case_1 %>% 
+  group_by(session_name, session_type) %>% 
+  summarize(mean = mean(data))
+```
+
+```{r}
+period_breakers <- tibble(break_point = c(3.5, 7.5, 10.5))
+
+ggplot(data = case_1, aes(x = session_number, y = data, group = session_type, shape = session_name, linetype = session_name)) +
+  geom_line() +
+  geom_point(size = 3) +
+  geom_vline(data = period_breakers, aes(xintercept = break_point)) + 
+  scale_x_continuous(breaks = seq(1, 15, 1)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme_classic() +
+  labs(title = "Case 1",
+       subtitle = "Fun w/ the class",
+       x = "Session #",
+       y = "Score",
+       shape = "Session Name",
+       linetype = "Session Name")
 ```
