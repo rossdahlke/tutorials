@@ -15,9 +15,15 @@ Single-participant research studies play a vital role in various fields, includi
 
 We will use the popular ggplot2 package in R, a versatile and powerful tool for creating a wide range of data visualizations.
 
-Throughout this tutorial, you will learn how to: - Set up your R environment and load the necessary packages.
+Throughout this tutorial, you will learn how to:
 
-\- Import and examine single-participant research data. - Create clear and informative line plots with time on the x-axis and a measure on the y-axis. - Enhance your plots with labels, colors, and error bars. - Customize and format your visualizations to meet publication standards. - Apply your newfound skills to a real-world case study.
+\- Set up your R environment and load the necessary packages.
+
+\- Import and examine single-participant research data.
+
+\- Create clear and informative line plots with time on the x-axis and a measure on the y-axis. - Enhance your plots with labels, colors, and error bars.
+
+\- Customize and format your visualizations to meet publication standards. - Apply your newfound skills to a real-world case study.
 
 By the end of this tutorial, you will have the knowledge and skills to effectively visualize single-participant research data, enabling you to communicate your findings with clarity and precision. So, let's get started with the fundamentals of ggplot2 and begin your journey into the world of data visualization for single-participant research!
 
@@ -906,3 +912,23 @@ ggplot(data = case_1, aes(x = session_number, y = data, group = session_type, sh
        shape = "Session Name",
        linetype = "Session Name")
 ```
+
+# Recommended Citation
+
+Bibtex
+
+\@misc{Dahlke, 
+ title={"Visualizing Single-Participant Data"}, 
+ url={https://github.com/rossdahlke/tutorials/tree/main/visualizing-single-participant-data}, 
+ journal={GitHub}, 
+ author={Dahlke, Ross}, 
+ year = {2023}
+} 
+
+APA
+
+Dahlke, R. (2023). "Visualizing Single-Participant Data." GitHub. https://github.com/rossdahlke/tutorials/tree/main/visualizing-single-participant-data
+
+MLA:
+
+Dahlke, Ross. "'Visualizing Single-Participant Data.'" GitHub, github.com/rossdahlke/tutorials/tree/main/visualizing-single-participant-data. 2023
